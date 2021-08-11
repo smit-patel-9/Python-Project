@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<title>Bootstrap Example</title>
+	<meta charset="utf-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    tr,td{
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+  	<div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Smit Patel</a>
+    </div>
+    <ul class="nav navbar-nav">
+      {% if request.session.email %}
+      <li class="active"><a href="/">Home</a></li>
+      {% endif %}
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Courses<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="https://www.w3schools.com/python/">Python</a></li>
+          <li><a href="https://www.w3schools.com/java/">java</a></li>
+          <li><a href="https://developer.android.com/docs">Android</a></li>
+        </ul>
+      </li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+
+      {% if request.session.email %}
+
+        <li><a href="{% url 'change_password' %}"><span class="glyphicon glyphicon-edit"></span>Change Password</a></li>
+
+        <li>
+          <a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span>Profile</a>
+        </li>
+
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span>Log Out ({{request.session.fname}})</a></li>
+
+        <li><img src="{{request.session.image}}" height="50px" width="50px" class="dropdown-toggle" data-toggle="dropdown">
+            <ul class="dropdown-menu" style="text-align: center;">
+              <li>{{request.session.fname}}</li><hr style="margin: 5px;">
+              <li>{{request.session.email}}</li><hr style="margin: 5px;">
+              <li><a href="{% url 'logout' %}"><input type="button" name="btn" value="Log Out" class="btn btn-primary"></a></li>
+            </ul>
+        </li>
+
+
+      {% else %}
+
+        <li><a href="{% url 'signup' %}" ><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+      {% endif %}
+
+    </ul>
+  	</div>
+  </nav>
+  {% block content %}
+  {% endblock %}
+
+</body>
+</html>

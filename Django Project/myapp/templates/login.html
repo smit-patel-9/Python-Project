@@ -1,0 +1,67 @@
+{% extends "header.html" %}
+{% block content %}
+<body>
+	<center>
+		<form name="form" method="POST" align="center" action="{% url 'login' %}">
+			{% csrf_token %}
+			<table align="center">
+				<h1>Login</h1>
+				
+				{% if msg %}
+					<!-- <p style="color: darkgreen;"> -->
+					<tr>
+						<td class="alert alert-{{class}}" colspan="2">{{msg}}</td>
+					</tr>
+					<!-- </p> -->
+				{% endif %}
+
+				<td><input type="hidden" value="Hello"> </td>
+				<tr>
+					<td>Email :</td>
+					<td><input type="text" name="email"  class="form-control" placeholder="Enter Email" required=""></td>
+				</tr>
+				<tr>
+					<td> Password :</td>
+					<td><input type="Password" name="password" class="form-control" placeholder="Enter Password" required=""></td>
+				</tr>
+				<tr>
+					<td colspan="2" ><input type="submit" name="Submit" class="btn btn-primary"></td>
+				</tr>
+			</table>
+		</form>
+		<a href="{% url 'forgot_password' %}"><u>Forgot Password</u></a>
+
+		
+
+	</center>
+</body>
+
+<!-- <div class="container mt-5 pt-4">
+	<div class="col-6 mx-auto">
+		<form method="POST">
+			{% csrf_token %}
+
+			{% if msg %}
+				<div class="alert alert-{{class}}">
+					{{msg}}
+				</div>
+			{% endif %}
+			<div class="row">
+				<div class="form-group col-12">
+					<input type="text" name="email" class="form-control" placeholder="Email">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-12">
+					<input type="Password" name="password" class="form-control" placeholder="Password">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-12">
+					<input type="submit" name="Submit" class="btn-primary">
+				</div>
+			</div>
+		</form>
+	</div>
+</div> -->
+{% endblock %}

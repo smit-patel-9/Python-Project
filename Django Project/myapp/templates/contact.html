@@ -1,0 +1,99 @@
+{% extends "header.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		tr,td{
+			padding: 10px;
+		}
+
+		.container {
+		    background-color: #eef2f9;
+		    width: 400px;
+		    border-radius: 4px;
+		}
+		
+		.second {
+		    width: 350px;
+		    background-color: white;
+		    border-radius: 4px;
+		    box-shadow: 10px 10px 5px #aaaaaa
+		}
+
+		.text1 {
+		    font-size: 13px;
+		    font-weight: 500;
+		    color: #56575b
+		}
+
+		.text2 {
+		    font-size: 13px;
+		    font-weight: 500;
+		    margin-left: 6px;
+		    color: #56575b
+		}
+		
+	</style>
+</head>
+<body>
+	<center>
+		<form name="form" method="POST" align="center" action="{% url 'contact' %}">
+			{% csrf_token %}
+			<table align="center">
+				<h1>Contact Us</h1>
+
+				{% if msg %}
+					<tr>
+						<td colspan="2">
+							<div class="alert alert-{{class}}">{{msg}}</div>
+						</td>
+					</tr>
+				{% endif %}
+				
+				<tr>
+					<td>Name :</td>
+					<td><input type="text" name="name" class="form-control" placeholder="Enter Name" required=""></td>
+				</tr>
+				<tr>
+					<td>Email :</td>
+					<td><input type="text" name="email" class="form-control" placeholder="Enter Email" required=""></td>
+				</tr>
+				<tr>
+					<td>Number :</td>
+					<td><input type="text" name="number" class="form-control" placeholder="Enter Number" required=""></td>
+				</tr>
+				<tr>
+					<td>Remarks :</td>
+					<td><textarea rows="5" cols="22" name="remarks" class="form-control" placeholder="Enter Remarks" required=""></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" ><input type="submit" name="Submit" class="btn btn-primary"></td>
+				</tr>
+			</table>
+		</form>
+	<hr><h1> Recent Remarks</h1><hr>   
+	</center>
+    
+    
+	{% for i in contact %}
+		<!-- Name : {{i.name}} <br>
+		Remarks : {{i.remarks}}
+		<br><hr> -->
+		<div class="container justify-content-center mt-5 border-left border-right">
+			<div class="d-flex justify-content-center py-2" style="padding: 10px;">
+		        <div class="second py-2 px-2" style="padding: 10px"> <span class="text1">{{i.remarks}}</span>
+		            <div class="d-flex justify-content-between py-1 pt-2">
+		                <div class="glyphicon glyphicon-user"><!-- <img src="https://i.imgur.com/AgAC1Is.jpg" width="18"> --><span class="text2">{{i.name}}</span></div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	{% endfor %}	
+
+
+</body>
+</html>
+{% endblock %}
